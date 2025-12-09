@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CubicControl – Full Install Guide</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0b1b14;
+      --bg-alt: #0f231a;
+      --panel: #132920;
+      --panel-light: #1b3a2b;
+      --border: #1f4a33;
+      --accent: #4caf50;
+      --accent-soft: #66bb6a;
+      --accent-blue: #4fc3f7;
+      --accent-gold: #fbc02d;
+      --text-main: #f5f7f9;
+      --text-muted: #b9c6cf;
+      --danger: #ff7043;
+      --code-bg: #06110c;
+      --shadow-strong: 0 18px 40px rgba(0, 0, 0, 0.6);
+      --shadow-soft: 0 8px 22px rgba(0, 0, 0, 0.45);
+      --radius-block: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background:
+        linear-gradient(180deg, #0c2619 0%, #07100b 45%, #020605 100%),
+        radial-gradient(circle at 10% 0%, rgba(111, 207, 151, 0.18), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(79, 195, 247, 0.16), transparent 55%);
+      color: var(--text-main);
+      line-height: 1.7;
+      padding: 0;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    /* Hero / banner */
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 24px;
+      padding: 24px 24px 26px;
+      background:
+        linear-gradient(180deg, #2e7d32 0%, #1b5e20 35%, #0d331d 100%);
+      border-radius: 12px;
+      border: 2px solid #2e7d32;
+      box-shadow: var(--shadow-strong);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    @media (max-width: 780px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(45deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+                        linear-gradient(-45deg, rgba(0,0,0,0.2) 1px, transparent 1px);
+      background-size: 16px 16px;
+      opacity: 0.25;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 999px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-pill span.pixel-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-gold);
+      box-shadow: 0 0 0 2px #2e7d32;
+    }
+
+    .hero-title {
+      margin: 14px 0 10px;
+      font-family: 'Press Start 2P', system-ui, sans-serif;
+      font-size: 20px;
+      line-height: 1.4;
+      text-shadow: 0 3px 0 #1b5e20;
+      text-transform: uppercase;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 14px;
+      color: #e0f2f1;
+      font-size: 14px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      margin: 4px 0 0;
+    }
+
+    .meta-chip {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .hero-right {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      transform: translateY(4px);
+    }
+
+    .hero-block {
+      width: 70px;
+      height: 70px;
+      background:
+        linear-gradient(180deg, #66bb6a 0%, #43a047 55%, #2e7d32 80%, #795548 81%, #5d4037 100%);
+      border-radius: var(--radius-block);
+      border: 2px solid #1b5e20;
+      box-shadow: 0 8px 0 #102814, 0 16px 24px rgba(0,0,0,0.75);
+      position: relative;
+    }
+
+    .hero-block.small {
+      width: 56px;
+      height: 56px;
+    }
+
+    .hero-block::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(135deg, rgba(255,255,255,0.4), transparent 55%);
+      mix-blend-mode: soft-light;
+      opacity: 0.5;
+    }
+
+    .hero-grid .hero-block:nth-child(2) {
+      transform: translateY(-10px);
+    }
+
+    .hero-grid .hero-block:nth-child(4),
+    .hero-grid .hero-block:nth-child(6),
+    .hero-grid .hero-block:nth-child(8) {
+      background:
+        linear-gradient(180deg, #43a047 0%, #2e7d32 55%, #1b5e20 80%, #6d4c41 82%, #4e342e 100%);
+    }
+
+    .hero-grid .hero-block:nth-child(5) {
+      background:
+        radial-gradient(circle at 30% 30%, #c8e6c9 0, #66bb6a 16%, transparent 55%),
+        linear-gradient(180deg, #689f38 0%, #388e3c 55%, #1b5e20 80%, #6d4c41 82%, #4e342e 100%);
+    }
+
+    /* Table of contents */
+
+    .toc {
+      margin: 24px auto 18px;
+      padding: 16px 18px;
+      background: var(--panel);
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 3fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 780px) {
+      .toc {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .toc-heading {
+      font-family: 'Press Start 2P', system-ui, sans-serif;
+      font-size: 12px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-soft);
+    }
+
+    .toc p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .toc-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+    }
+
+    .toc-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: var(--bg-alt);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .toc-step:hover {
+      border-color: var(--accent-soft);
+      background: #173527;
+    }
+
+    .toc-step-index {
+      min-width: 26px;
+      height: 26px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Press Start 2P', system-ui, sans-serif;
+      font-size: 11px;
+      background: #263238;
+      border-radius: 4px;
+      border: 2px solid #4caf50;
+      box-shadow: 0 3px 0 #000;
+    }
+
+    /* Sections */
+
+    section.section {
+      margin-top: 24px;
+      background: var(--panel);
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      padding: 18px 18px 20px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section.section::before {
+      content: "";
+      position: absolute;
+      top: -32px;
+      right: -32px;
+      width: 120px;
+      height: 120px;
+      background:
+        linear-gradient(180deg, rgba(76, 175, 80, 0.2) 0%, rgba(56, 142, 60, 0.05) 70%),
+        radial-gradient(circle at 30% 30%, rgba(200, 230, 201, 0.2), transparent 60%);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    h2.section-title {
+      font-family: 'Press Start 2P', system-ui, sans-serif;
+      font-size: 14px;
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+    }
+
+    h3 {
+      margin: 14px 0 6px;
+      font-size: 15px;
+    }
+
+    p {
+      margin: 0 0 10px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    strong {
+      color: #e8f5e9;
+    }
+
+    ul, ol {
+      margin: 6px 0 10px 20px;
+      padding-left: 4px;
+    }
+
+    li {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    /* Cards / grids */
+
+    .requirements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .req-card {
+      background: var(--panel-light);
+      border-radius: 6px;
+      padding: 10px 10px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+    }
+
+    .req-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 7px;
+      height: 100%;
+      background: linear-gradient(180deg, #4caf50, #66bb6a);
+    }
+
+    .req-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-blue);
+      margin-bottom: 4px;
+    }
+
+    /* Notes */
+
+    .note {
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 6px;
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      font-size: 13px;
+      color: var(--text-muted);
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .note::before {
+      content: "!";
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      background: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #263238;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.45);
+    }
+
+    .note.creeper {
+      border-style: solid;
+      border-color: rgba(76, 175, 80, 0.7);
+      background: rgba(11, 41, 24, 0.85);
+    }
+
+    .note.creeper::before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      background:
+        linear-gradient(#000 0 25%, transparent 25% 75%, #000 75% 100%),
+        linear-gradient(90deg, #000 0 25%, transparent 25% 75%, #000 75% 100%);
+      background-size: 4px 4px;
+      background-color: #4caf50;
+      border-radius: 0;
+    }
+
+    /* Steps */
+
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+      margin-left: 0;
+    }
+
+    .steps li {
+      position: relative;
+      counter-increment: step;
+      margin: 14px 0 14px;
+      padding-left: 46px;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      background: #263238;
+      border: 2px solid #4caf50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Press Start 2P', system-ui, sans-serif;
+      font-size: 13px;
+      color: #c8e6c9;
+      box-shadow: 0 3px 0 #000;
+    }
+
+    .steps li ul {
+      margin-top: 6px;
+    }
+
+    /* Code */
+
+    code {
+      background: rgba(0, 0, 0, 0.4);
+      color: #c5e1a5;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-family: Consolas, 'Cascadia Code', 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px;
+      overflow-x: auto;
+      font-size: 13px;
+      font-family: Consolas, 'Cascadia Code', 'JetBrains Mono', monospace;
+      color: #c5e1a5;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.3);
+    }
+
+    /* Links */
+
+    a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+
+    .footer {
+      margin: 26px auto 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-left">
+        <h1 class="hero-title">
+          Turn Your Spare PC<br />Into a dedicated Minecraft Server
+        </h1>
+        <p class="hero-subtitle">
+          Follow this step-by-step guide to install CubicControl (server + launcher) and the CubicControl ClientSide website.
+          Friends can wake and start your server remotely – even when your PC is sleeping.
+        </p>
+        <div class="hero-meta">
+          <div class="meta-chip">⏱&nbsp; 25–40 minutes</div>
+          <div class="meta-chip">🎮&nbsp; Beginner-friendly</div>
+          <div class="meta-chip">🖥️&nbsp; Windows 10/11 + Ethernet</div>
+        </div>
+      </div>
+      <div class="hero-right">
+		  <img src="CubicControlLogo.jpg" alt="CubicControl Logo" style="
+			width: 300px;
+			height: auto;
+			image-rendering: pixelated;
+			filter: drop-shadow(0 8px 20px rgba(0,0,0,0.6));
+		  ">
+		</div>
+    </header>
+
+    <!-- TABLE OF CONTENTS -->
+    <section class="toc" aria-label="Quick overview">
+      <div>
+        <div class="toc-heading">Your Redstone Plan</div>
+        <p>
+          You’ll prepare your PC and network, install CubicControl, deploy the ClientSide web app,
+          and then test everything before sharing access with friends.
+        </p>
+      </div>
+      <nav class="toc-steps" aria-label="Steps navigation">
+        <a href="#step-1" class="toc-step">
+          <span class="toc-step-index">1</span>
+          <span>Prep your PC &amp; network</span>
+        </a>
+        <a href="#step-2" class="toc-step">
+          <span class="toc-step-index">2</span>
+          <span>Install CubicControl</span>
+        </a>
+        <a href="#step-3" class="toc-step">
+          <span class="toc-step-index">3</span>
+          <span>Deploy ClientSide on Render</span>
+        </a>
+        <a href="#step-4" class="toc-step">
+          <span class="toc-step-index">4</span>
+          <span>Test &amp; share with friends</span>
+        </a>
+      </nav>
+    </section>
+
+    <!-- PREREQUISITES -->
+    <section class="section" id="requirements">
+      <h2 class="section-title">Before You Start – What You Need</h2>
+      <p>
+        Get these in place first. It’s like gathering your tools before you start building a base.
+      </p>
+
+      <div class="requirements-grid">
+        <div class="req-card">
+          <div class="req-label">Operating System</div>
+          <strong>Windows 10 or Windows 11</strong>
+          <p>Use a spare PC or machine you’re happy to dedicate to hosting.</p>
+        </div>
+
+        <div class="req-card">
+          <div class="req-label">Network</div>
+          <strong>Wired Ethernet</strong>
+          <p>Required for Wake-on-LAN so the PC can wake up when someone wants to join.</p>
+        </div>
+
+        <div class="req-card">
+          <div class="req-label">Domain / Hostname</div>
+          <strong>FreeDNS Subdomain</strong>
+          <p>
+            Create a free subdomain at
+            <a href="https://freedns.afraid.org/" target="_blank" rel="noreferrer">freedns.afraid.org</a>
+            (Subdomains tab).
+          </p>
+        </div>
+
+        <div class="req-card">
+          <div class="req-label">Tunnel / Remote</div>
+          <strong>Playit.gg</strong>
+          <p>
+            Install Playit for Windows and note the full path to
+            <code>playit.exe</code>.
+          </p>
+        </div>
+      </div>
+
+      <div class="note creeper">
+        Keep a simple notepad (physical or digital) with: router login, local IPv4, MAC address, FreeDNS hostname,
+        <code>ADMIN_KEY</code>, <code>AUTH_KEY</code>, and your <code>playit.exe</code> path.
+      </div>
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="section" id="step-1">
+      <h2 class="section-title">Step 1 – Prep Your PC &amp; Network</h2>
+      <p>
+        First, we’ll enable Wake-on-LAN, grab your IP/MAC, and forward the ports so your world is reachable from the outside.
+      </p>
+
+      <ol class="steps">
+        <li>
+          <strong>Turn on Wake on LAN in BIOS</strong><br />
+          Restart your PC and press your BIOS key (often <strong>Del</strong>, <strong>F2</strong>, or <strong>F10</strong> while booting).
+          In the <strong>Power</strong> or <strong>Advanced</strong> settings, enable
+          <em>Wake on LAN</em> or <em>Wake on PCI-E</em>. Save changes and exit.
+        </li>
+
+        <li>
+          <strong>Turn on Wake on LAN in Windows</strong><br />
+          Press <code>Win + R</code> → type <code>ncpa.cpl</code> → Enter.<br />
+          Right-click your <strong>Ethernet adapter</strong> → <strong>Properties</strong> → <strong>Configure</strong>.
+          <ul>
+            <li>Go to <strong>Power Management</strong> and check the wake boxes.</li>
+            <li>Go to the <strong>Advanced</strong> tab and set <strong>Wake on Magic Packet = Enabled</strong>.</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Find your IP and MAC address</strong><br />
+          Open PowerShell and run:
+          <ul>
+            <li><code>ipconfig</code> → copy your IPv4 address.</li>
+            <li>
+              <code>getmac /v /fo list</code> → copy the <strong>Physical Address</strong> for the active Ethernet adapter
+              (the one whose <em>Transport Name</em> does <strong>not</strong> say “Media disconnected”).
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Forward ports on your router</strong><br />
+          Open your router admin (often <code>http://192.168.1.1</code>) and log in
+          (password is usually printed on the router).
+          Find <strong>Port Forwarding</strong> / <strong>IPv4 Port Mapping</strong> and add:
+          <ul>
+            <li><strong>TCP</strong> → local IP (your IPv4):
+              <ul>
+                <li>Public <code>443</code> → local <code>443</code></li>
+                <li>Public <code>80</code> → local <code>80</code></li>
+              </ul>
+            </li>
+            <li><strong>UDP</strong> → local IP:
+              <ul>
+                <li>Public <code>9</code> → local <code>9</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Create your hostname on FreeDNS</strong><br />
+          Go to <a href="https://freedns.afraid.org/" target="_blank" rel="noreferrer">freedns.afraid.org</a> →
+          Sign Up and create an account.
+          After logging in:
+          <ul>
+            <li>Click <strong>Subdomains</strong> → <strong>Add</strong>.</li>
+            <li>Type = <strong>A</strong>.</li>
+            <li>Choose a <strong>subdomain name</strong> and a <strong>domain</strong> from the list.</li>
+            <li>
+              Set <strong>Destination</strong> to your public IP
+              (search “my IP” on Google to find it).
+            </li>
+            <li>Save, and keep this hostname handy (e.g. <code>myserver.chickenkiller.com</code>).</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Install Playit</strong><br />
+          Download Playit for Windows from
+          <a href="https://playit.gg/" target="_blank" rel="noreferrer">playit.gg</a> and install it.<br />
+          Note the full path to <code>playit.exe</code> (for example:
+          <code>C:\Users\You\AppData\Local\Programs\Playit\playit.exe</code>).
+        </li>
+      </ol>
+
+      <div class="note">
+        If something doesn’t work later (like waking the machine), double-check Wake-on-LAN settings first:
+        BIOS → Windows adapter → router.
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="section" id="step-2">
+      <h2 class="section-title">Step 2 – Install CubicControl (Server + Launcher)</h2>
+      <p>
+        Now we’ll install CubicControl on your host machine and connect it to your server folder and Playit.
+      </p>
+
+      <ol class="steps">
+        <li>
+          <strong>Download &amp; place CubicControl</strong><br />
+          Download <code>CubicControl.exe</code> and put it in a folder you choose,
+          for example <code>C:\CubicControl</code>.
+        </li>
+
+        <li>
+          <strong>Run as Administrator (first time)</strong><br />
+          Right-click <code>CubicControl.exe</code> → <strong>Run as administrator</strong>.<br />
+          This creates a Task Scheduler entry so CubicControl can auto-start after wake.
+        </li>
+
+        <li>
+          <strong>Enter your hostname</strong><br />
+          When the terminal asks for a hostname, enter the FreeDNS hostname you created
+          (e.g. <code>myserver.chickenkiller.com</code>). Caddy will use this for HTTPS and the ClientSide site.
+        </li>
+
+        <li>
+          <strong>Create your panel password</strong><br />
+          Open <code>http://localhost:38000</code> in your browser and create your CubicControl panel password.
+          (You can reset this later if needed.)
+        </li>
+
+        <li>
+          <strong>Set environment variables</strong><br />
+          When prompted in the panel, set:
+          <ul>
+            <li><code>ADMIN_KEY</code></li>
+            <li><code>AUTH_KEY</code></li>
+          </ul>
+          Write down <code>AUTH_KEY</code> – you’ll use it when deploying the ClientSide website.
+        </li>
+
+        <li>
+          <strong>Point CubicControl to Playit</strong><br />
+          When asked for the Playit path, browse to your <code>playit.exe</code> and confirm it.
+        </li>
+
+        <li>
+          <strong>Create a Minecraft profile</strong><br />
+          In the CubicControl panel:
+          <ul>
+            <li>Click <strong>New Profile</strong> and give it a name.</li>
+            <li>
+              <strong>Folder:</strong> point to your existing Minecraft server folder
+              (where your <code>.jar</code> and world live).
+            </li>
+            <li>
+              <strong>Run script:</strong> use a <code>run.bat</code> with something like:<br />
+              <code>java -jar jarname.jar nogui</code><br />
+              (Replace <code>jarname</code> with your actual server jar.)
+            </li>
+            <li>
+              Keep <strong>auto-close</strong> and <strong>sleep-after-inactivity</strong> enabled,
+              and adjust the timeout if you want.
+            </li>
+            <li>Save the profile, then click <strong>Start</strong> to test it.</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Keep CubicControl running</strong><br />
+          Leave <code>CubicControl.exe</code> running.<br />
+          You can access the panel locally via <code>http://localhost:38000</code> or remotely via your hostname.
+          Don’t stop Caddy if you want remote or ClientSide access.
+        </li>
+      </ol>
+
+      <div class="note creeper">
+        When no players are online for your chosen timeout, CubicControl will
+        stop the server and put the PC to sleep. It wakes up again using Wake-on-LAN when someone asks to start it.
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="section" id="step-3">
+      <h2 class="section-title">Step 3 – Deploy CubicControl ClientSide (Render Free Tier)</h2>
+      <p>
+        Next, we’ll deploy the web dashboard that lets you (and your friends) wake and start the server from anywhere.
+      </p>
+
+      <ol class="steps">
+        <li>
+          <strong>Sign in to Render</strong><br />
+          Go to <a href="https://render.com/" target="_blank" rel="noreferrer">render.com</a>
+          and sign up or log in.
+        </li>
+
+        <li>
+          <strong>Create a new Web Service</strong><br />
+          On your Render dashboard:
+          <ul>
+            <li>Click <strong>New</strong> → <strong>Web Service</strong>.</li>
+            <li>Source: <strong>Public Git Repository</strong>.</li>
+            <li>Repository URL:
+              <code>https://github.com/CubicControl/CubicControl-ClientSide</code>
+            </li>
+            <li>Build Command:
+              <code>pip install -r requirements.txt</code>
+            </li>
+            <li>Start Command:
+              <code>python app.py</code>
+            </li>
+            <li>Plan: choose the <strong>Free</strong> tier.</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Add environment variables</strong><br />
+          In your Render service, add these environment variables
+          (you can paste them as a block and then edit):
+<pre><code>AUTH_KEY=YOUR_AUTH_KEY_HERE
+TARGET_MAC_ADDRESS=AA:BB:CC:DD:EE:FF
+TARGET_IP_ADDRESS=myserver.chickenkiller.com
+LOGIN_USERNAME=yourlogin
+LOGIN_PASSWORD=yourpassword
+SERVER_NAME=YourServerName
+ALLOW_WAKE=true
+ALLOW_START=true
+ALLOW_STOP=false
+ALLOW_RESTART=false</code></pre>
+          <ul>
+            <li><code>AUTH_KEY</code> must match the <code>AUTH_KEY</code> you set in CubicControl.</li>
+            <li><code>TARGET_MAC_ADDRESS</code> is the MAC you copied from <code>getmac</code>.</li>
+            <li><code>TARGET_IP_ADDRESS</code> is your FreeDNS hostname (or your public IP).</li>
+            <li>
+              <code>LOGIN_USERNAME</code> / <code>LOGIN_PASSWORD</code> are what you’ll share with friends
+              who can control the server.
+            </li>
+            <li>
+              <code>ALLOW_*</code> flags define what they can do.
+              For example, you might allow wake and start, but disable stop/restart.
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Deploy and grab the URL</strong><br />
+          Click <strong>Deploy</strong> and wait for the build to finish.
+          Once it’s done, copy the Render URL shown at the top of the service page – this is your ClientSide link.
+        </li>
+      </ol>
+
+      <div class="note">
+        On the Render free tier, your site may “sleep” when idle and take a few seconds to wake up when someone first visits.
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="section" id="step-4">
+      <h2 class="section-title">Step 4 – Test Everything &amp; Share</h2>
+      <p>
+        Time for the fun part – test the full flow, then give your crew access so they can play whenever they want.
+      </p>
+
+      <ol class="steps">
+        <li>
+          <strong>Open your ClientSide website</strong><br />
+          Visit the Render URL you copied and log in with your chosen username/password.
+        </li>
+
+        <li>
+          <strong>Make sure CubicControl is running at home</strong><br />
+          On the host PC, confirm that <code>CubicControl.exe</code> is running.
+          The ClientSide page should show the host as <strong>live</strong> if everything is connected.
+        </li>
+
+        <li>
+          <strong>Start your Minecraft profile from the web</strong><br />
+          On the ClientSide page, click <strong>Start</strong> on your Minecraft profile.
+          If the server launches and players can join using your hostname, you’re all set.
+        </li>
+
+        <li>
+          <strong>Share with friends</strong><br />
+          Give your friends:
+          <ul>
+            <li>Your ClientSide URL (Render link).</li>
+            <li>The username/password you created.</li>
+            <li>Your Minecraft server address (your FreeDNS hostname).</li>
+          </ul>
+          They can now wake and start the server even while your PC is sleeping.
+        </li>
+      </ol>
+
+      <div class="footer">
+        Tip: Add screenshots or small GIFs for each major step (BIOS, adapter settings, port forwarding, CubicControl panel,
+        and Render env vars) to turn this into a polished, beginner-friendly landing guide.
+      </div>
+    </section>
+  </div>
+</body>
+</html>
