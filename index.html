@@ -628,18 +628,21 @@
           <ul>
             <li>Go to <strong>Power Management</strong> and check the wake boxes.</li>
             <li>Go to the <strong>Advanced</strong> tab and set <strong>Wake on Magic Packet = Enabled</strong>.</li>
+			<img src="wol.jpg" alt="wol image">
           </ul>
         </li>
 
         <li>
           <strong>Find your IP and MAC address</strong><br />
-          Open PowerShell and run:
+          Open Command Prompt (CMD) and run:
           <ul>
             <li><code>ipconfig</code> → copy your IPv4 address.</li>
+			<img src="ipv4.jpg" alt="ipv4 image">
             <li>
               <code>getmac /v /fo list</code> → copy the <strong>Physical Address</strong> for the active Ethernet adapter
               (the one whose <em>Transport Name</em> does <strong>not</strong> say “Media disconnected”).
             </li>
+			<img src="mac.jpg" alt="mac image">
           </ul>
         </li>
 
@@ -705,7 +708,7 @@
       <ol class="steps">
         <li>
           <strong>Download &amp; place CubicControl</strong><br />
-          Download <code>CubicControl.exe</code> and put it in a folder you choose,
+          <a href="https://github.com/CubicControl/CubicControl-Launcher/releases/">Download</a> <code>CubicControl.exe</code> and put it in a folder you choose,
           for example <code>C:\CubicControl</code>.
         </li>
 
